@@ -343,12 +343,13 @@ def getProductReviews(product_id, headers):
         try:
             url = reviews['name'] + "/" + reviews['endpoint'] + "/" + str(product_id)
             res = requests.get(url, headers=headers, timeout=3.0)
+            res2 = res
         except BaseException:
             res = None
         if res and res.status_code == 200:
             return 200, res.json()
     status = res.status_code if res is not None and res.status_code else 500
-    return status, {'error': 'Sorry, product reviews are currently unavailable for this book.'}
+    return status, {'error': 'Sorry, product reviews are currently unavailable for this book.'+ str(res2)}
 
 
 def getProductRatings(product_id, headers):
